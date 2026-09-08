@@ -232,6 +232,28 @@ select.field option{background:#161424;color:var(--parch)}
 textarea.field{resize:vertical;min-height:110px;line-height:1.6}
 .hint{font-size:.78rem;color:var(--muted);margin:.55rem 0 0}
 
+/* ---------- questionario già inviato: sola lettura ---------- */
+#grimorio.bloccato label.opt,#grimorio.bloccato label.gem,
+html.bacchetta #grimorio.bloccato label.opt,
+html.bacchetta #grimorio.bloccato label.gem{cursor:default}
+#grimorio.bloccato .opt:hover{background:rgba(11,10,20,.35);border-color:transparent;transform:none}
+#grimorio.bloccato .gem:hover{background:rgba(11,10,20,.35);transform:none}
+#grimorio.bloccato .opt input:not(:checked) ~ .opt-label{opacity:.5}
+#grimorio.bloccato .gem input:not(:checked) ~ b{opacity:.5}
+#grimorio.bloccato .field{
+  opacity:1;color:var(--parch);-webkit-text-fill-color:var(--parch);
+  background:rgba(11,10,20,.3);border-color:var(--line-soft);cursor:default;
+}
+#grimorio.bloccato select.field{background-image:none;padding-right:.9rem}
+.gia{display:none;flex-direction:column;align-items:center;gap:1.3rem}
+#grimorio.bloccato .gia{display:flex}
+.gia .sigillo{
+  font-family:var(--f-rune);font-size:.64rem;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--gold);border:1px solid var(--line);border-radius:999px;padding:.5rem 1.2rem;
+  background:rgba(22,20,36,.6);
+}
+.gia p{font-family:var(--f-display);font-size:1.1rem;line-height:1.55;color:#C7BDA8;max-width:34em;margin:0}
+
 /* ---------- seal / submit ---------- */
 .seal{margin-top:3.4rem;text-align:center;border-top:1px solid var(--line-soft);padding-top:2.8rem}
 .tally{font-family:var(--f-rune);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin:0 0 1.4rem}
@@ -256,7 +278,8 @@ textarea.field{resize:vertical;min-height:110px;line-height:1.6}
 #done h2{font-family:var(--f-display);font-weight:600;font-size:clamp(2rem,6vw,2.9rem);margin:0 0 1rem;color:#F6EFE0}
 #done p{font-family:var(--f-display);font-size:1.15rem;color:#C7BDA8;max-width:30em;margin:0 auto}
 
-body.in-vault #spine,body.in-vault #bar{display:none}
+body.in-vault #spine,body.in-vault #bar,
+body.finito #spine,body.finito #bar{display:none}
 
 /* ---------- buttons, ghost ---------- */
 .ghost{
@@ -319,6 +342,135 @@ body.in-vault #spine,body.in-vault #bar{display:none}
 }
 .keyform input:focus{outline:none;border-color:rgba(217,164,65,.6);box-shadow:0 0 0 3px rgba(217,164,65,.12)}
 .keymsg{font-size:.82rem;color:var(--danger);margin:.8rem 0 0;min-height:1.1em}
+
+/* ---------- cripta / risultati ---------- */
+.vhead{text-align:center;margin-bottom:2.6rem}
+.vhead h2{font-family:var(--f-display);font-weight:600;font-size:clamp(2rem,6vw,2.9rem);margin:0 0 .5rem;color:#F6EFE0}
+.vhead p{color:var(--muted);font-size:.92rem;margin:0}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.8rem;margin-bottom:2.8rem}
+.tile{
+  border:1px solid var(--line-soft);border-radius:16px;padding:1.15rem 1.1rem;
+  background:linear-gradient(165deg,rgba(28,25,48,.75),rgba(16,14,27,.75));
+}
+.tile b{
+  display:block;font-family:var(--f-display);font-size:2.3rem;line-height:1;color:var(--gold-soft);
+  font-weight:600;font-variant-numeric:tabular-nums;margin-bottom:.4rem;
+}
+.tile b small{font-size:.9rem;color:var(--muted);font-family:var(--f-ui);font-weight:400;margin-left:.15rem}
+.tile span{font-size:.76rem;letter-spacing:.05em;color:var(--muted);line-height:1.4;display:block}
+.qres{margin-bottom:2.2rem}
+.qres h3{
+  font-family:var(--f-display);font-weight:600;font-size:1.12rem;line-height:1.45;color:#EFE7D6;
+  margin:0 0 .35rem;text-wrap:pretty;
+}
+.qres .meta{font-size:.74rem;color:#6E6758;margin:0 0 1rem;letter-spacing:.03em}
+.bars{display:flex;flex-direction:column;gap:.42rem}
+.row{display:grid;grid-template-columns:minmax(0,11.5rem) 1fr auto;align-items:center;gap:.85rem}
+.row .rl{font-size:.9rem;color:#BFB6A3;line-height:1.35}
+.row .rt{height:15px;background:rgba(255,255,255,.045);border-radius:8px;overflow:hidden}
+.row .rt i{
+  display:block;height:100%;width:0;border-radius:0 8px 8px 0;
+  background:rgba(217,164,65,.36);transition:width 1.1s cubic-bezier(.22,1,.36,1);
+}
+.row .rv{font-size:.85rem;color:#BFB6A3;font-variant-numeric:tabular-nums;white-space:nowrap}
+.row .rv em{font-style:normal;color:#6E6758;margin-left:.35rem}
+.row.top .rl{color:var(--gold-soft)}
+.row.top .rt i{background:linear-gradient(90deg,var(--gold),var(--gold-soft));box-shadow:0 0 14px rgba(217,164,65,.45)}
+.row.top .rv{color:var(--gold-soft)}
+.row:hover .rt i{filter:brightness(1.25)}
+.chip{
+  font-family:var(--f-rune);font-size:.55rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--night);background:var(--gold);border-radius:999px;padding:.14rem .5rem;margin-left:.5rem;
+  vertical-align:middle;
+}
+.tl-wrap{overflow-x:auto;padding-bottom:.5rem}
+.tl{display:flex;align-items:flex-end;gap:7px;min-width:min-content}
+.tl .col{flex:1 0 30px;display:flex;flex-direction:column;align-items:center;gap:.45rem}
+.tl .col b{font-size:.78rem;font-weight:500;color:#BFB6A3;font-variant-numeric:tabular-nums;line-height:1}
+.tl .col.zero b{color:#4E4A40}
+.tl-track{height:132px;width:100%;max-width:40px;display:flex;align-items:flex-end}
+.tl-track i{
+  display:block;width:100%;height:0;border-radius:7px 7px 0 0;
+  background:rgba(217,164,65,.34);transition:height 1s cubic-bezier(.22,1,.36,1);
+}
+.tl .col.peak .tl-track i{background:linear-gradient(180deg,var(--gold-soft),var(--gold));box-shadow:0 0 14px rgba(217,164,65,.45)}
+.tl .col.peak b{color:var(--gold-soft)}
+.tl .col:hover .tl-track i{filter:brightness(1.3)}
+.tl-axis{height:1px;background:var(--line-soft);margin:0 0 .5rem}
+.tl .col span{font-size:.67rem;color:#6E6758;white-space:nowrap;letter-spacing:.02em}
+.quotes{display:flex;flex-direction:column;gap:.6rem;max-height:26rem;overflow-y:auto;padding-right:.4rem}
+.quote{
+  border-left:2px solid var(--line);padding:.7rem 0 .7rem 1rem;
+  font-family:var(--f-display);font-size:1.02rem;line-height:1.55;color:#CFC5B0;
+}
+.empty{
+  border:1px dashed var(--line-soft);border-radius:16px;padding:2.2rem 1.5rem;text-align:center;
+  color:var(--muted);font-size:.92rem;line-height:1.7;
+}
+.empty code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.8rem;color:var(--gold-soft);word-break:break-all}
+@media(max-width:560px){
+  .row{grid-template-columns:1fr auto;gap:.3rem .7rem}
+  .row .rl{grid-column:1;grid-row:1}
+  .row .rv{grid-column:2;grid-row:1}
+  .row .rt{grid-column:1 / -1;grid-row:2}
+}
+
+/* ---------- banner della soglia: riquadro centrale ---------- */
+#velobanner{
+  position:fixed;inset:0;z-index:69;opacity:0;visibility:hidden;
+  background:rgba(7,6,13,.56);
+  -webkit-backdrop-filter:blur(7px) saturate(.92);backdrop-filter:blur(7px) saturate(.92);
+  transition:opacity .45s ease,visibility .45s;
+}
+body.banner-su #velobanner{opacity:1;visibility:visible}
+#banner{
+  position:fixed;left:50%;top:50%;z-index:70;
+  width:min(430px, calc(100vw - 2.2rem));
+  transform:translate(-50%,-50%) translateY(18px) scale(.965);
+  opacity:0;visibility:hidden;
+  background:linear-gradient(165deg,rgba(31,28,54,.98),rgba(16,14,27,.98));
+  border:1px solid var(--line);border-radius:20px;
+  padding:2.4rem 1.9rem 2.1rem;
+  display:flex;flex-direction:column;align-items:center;text-align:center;gap:0;
+  box-shadow:0 44px 96px -44px rgba(0,0,0,.96),0 0 0 1px rgba(217,164,65,.07);
+  transition:transform .55s cubic-bezier(.22,1,.36,1),opacity .4s ease,visibility .55s;
+}
+#banner.su{transform:translate(-50%,-50%);opacity:1;visibility:visible}
+#banner .segno{
+  flex:0 0 auto;width:44px;height:44px;display:grid;place-items:center;transform:rotate(45deg);
+  border:1px solid var(--line);background:linear-gradient(150deg,var(--vellum-2),var(--night-2));
+  margin-bottom:1.5rem;
+}
+#banner .segno i{display:block;width:10px;height:10px;background:var(--gold);box-shadow:0 0 12px rgba(217,164,65,.85)}
+#banner .testo{min-width:0}
+#banner .testo b{
+  display:block;font-family:var(--f-display);font-weight:600;font-size:clamp(1.34rem,4.4vw,1.62rem);
+  line-height:1.26;color:#F4EDDD;text-wrap:balance;
+}
+#banner .testo span{
+  display:block;font-family:var(--f-display);font-size:1.02rem;line-height:1.5;
+  color:#C3B9A4;margin-top:.7rem;
+}
+#banner .azioni{display:flex;gap:.6rem;align-items:center;justify-content:center;flex-wrap:wrap;margin-top:1.8rem}
+#banner .si{
+  appearance:none;cursor:pointer;font-family:var(--f-rune);font-size:.7rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--night);background:linear-gradient(180deg,var(--gold-soft),var(--gold));
+  border:0;border-radius:11px;padding:.86rem 1.5rem;white-space:nowrap;
+  box-shadow:0 0 0 1px rgba(217,164,65,.5),0 10px 30px -12px rgba(217,164,65,.8);
+  transition:transform .25s;
+}
+#banner .si:hover{transform:translateY(-2px)}
+#banner .si:focus-visible,#banner .ghost:focus-visible{outline:2px solid var(--gold-soft);outline-offset:3px}
+#banner .ghost{font-size:.68rem;padding:.82rem 1.3rem;white-space:nowrap}
+@media(max-width:430px){
+  #banner{padding:2rem 1.4rem 1.8rem}
+  #banner .azioni{flex-direction:column;width:100%}
+  #banner .azioni button{width:100%}
+}
+@media (prefers-reduced-motion: reduce){
+  #banner{transition:opacity .15s,visibility .15s;transform:translate(-50%,-50%)}
+  #velobanner{transition:none}
+}
 
 /* ---------- cripta / risultati ---------- */
 .vhead{text-align:center;margin-bottom:2.6rem}
@@ -636,6 +788,12 @@ html.bacchetta textarea{cursor:text}
     <div class="seal">
       <p class="tally" id="tally"><b>0</b> di 12 rune incise</p>
       <button class="send" type="submit" id="send">Sigilla le risposte</button>
+
+      <div class="gia" id="gia">
+        <span class="sigillo">Sigillo apposto</span>
+        <p>Queste sono le risposte che hai già inciso nel grimorio.<br>Restano come le hai lasciate: non si possono più cambiare.</p>
+        <button class="ghost" type="button" id="gia-cripta">Entra nella cripta</button>
+      </div>
       <p class="warn" id="warn" role="alert"></p>
       <p class="foot">Le risposte vengono registrate senza nome, senza email e senza alcun identificativo. Nessuno può risalire a chi ha scritto cosa — nemmeno chi ha creato questo questionario.</p>
     </div>
@@ -653,14 +811,7 @@ html.bacchetta textarea{cursor:text}
     <p>Le tue risposte sono state registrate in forma anonima. Grazie per aver aperto la tua libreria.</p>
     <p class="ask-note" id="verif" role="status"></p>
 
-    <div class="ask" id="ask">
-      <p class="ask-q">Ti interessa vedere come hanno risposto gli altri?</p>
-      <div class="ask-btns">
-        <button class="ghost" type="button" id="ask-si">Sì, sveglia il drago</button>
-        <button class="ghost" type="button" id="ask-no">No, grazie</button>
-      </div>
-      <p class="ask-note" id="ask-note"></p>
-    </div>
+    <div class="ask" id="ask" hidden></div>
   </section>
 </div>
 
@@ -721,9 +872,31 @@ html.bacchetta textarea{cursor:text}
       <p id="vsub">—</p>
     </div>
     <div id="vbody"></div>
+
+    <details class="keyhole" id="keyhole2" hidden>
+      <summary>Conosci la parola del custode?</summary>
+      <form class="keyform" id="keyform2" autocomplete="off">
+        <input type="password" id="keyinput2" placeholder="parola del custode" aria-label="Parola del custode">
+        <button class="ghost" type="submit">Pronuncia</button>
+      </form>
+      <p class="keymsg" id="keymsg2" role="alert"></p>
+    </details>
   </div>
 </section>
 </main>
+
+<div id="velobanner" aria-hidden="true"></div>
+<aside id="banner" role="dialog" aria-modal="true" aria-label="Vuoi vedere i risultati?">
+  <div class="segno" aria-hidden="true"><i></i></div>
+  <div class="testo">
+    <b>Ti interessa vedere come hanno risposto gli altri?</b>
+    <span>Un drago veglia sui risultati: si sveglia solo per chi ha risposto.</span>
+  </div>
+  <div class="azioni">
+    <button class="si" type="button" id="ban-si">Sì, entra</button>
+    <button class="ghost" type="button" id="ban-no">No, grazie</button>
+  </div>
+</aside>
 
 <script>
 (function(){
@@ -925,31 +1098,13 @@ html.bacchetta textarea{cursor:text}
   });
 
   /* ---------- already answered ---------- */
-  var KEY = "grimorio-fantasy-inviato";
-  var sent = false;
-  /* #riprova azzera il blocco locale, utile per rifare una prova */
-  if (location.hash === "#riprova"){
-    try { localStorage.removeItem(KEY); } catch(e){}
-    history.replaceState(null, "", location.pathname + location.search);
-  }
   window.addEventListener("hashchange", function(){
-    if (location.hash === "#riprova"){
-      try { localStorage.removeItem(KEY); } catch(e){}
-      location.replace(location.pathname + location.search);
-    } else if (location.hash === "#risultati"){
+    if (location.hash === "#risultati"){
       if (viewVault && viewVault.hidden) mostra("vault");
     } else if (!location.hash){
       if (viewVault && !viewVault.hidden) mostra("form");
     }
   });
-  try { sent = localStorage.getItem(KEY) === "1"; } catch(e){}
-  if (sent){
-    form.style.display = "none";
-    var d0 = document.getElementById("done");
-    d0.querySelector("h2").textContent = "Hai già risposto";
-    d0.querySelector("p").textContent = "Le tue risposte sono al sicuro nel grimorio. Grazie ancora.";
-    d0.classList.add("show");
-  }
 
   /* ---------- submit ---------- */
   var warn = document.getElementById("warn");
@@ -983,6 +1138,8 @@ html.bacchetta textarea{cursor:text}
 
   form.addEventListener("submit", function(ev){
     ev.preventDefault();
+    /* già sigillato: non si invia una seconda volta */
+    if (form.classList.contains("bloccato")) return;
     var missing = required.filter(function(q){ return !answered(q); });
     if (missing.length){
       missing.forEach(function(q){ q.classList.add("missing"); });
@@ -1000,21 +1157,25 @@ html.bacchetta textarea{cursor:text}
     send.disabled = true;
     send.textContent = "Sto sigillando…";
 
+    var inviate = raccogli();
     fetch(ARCHIVIO, {
       method: "POST",
       headers: {"Content-Type": "text/plain;charset=utf-8"},
-      body: JSON.stringify({v: raccogli()})
+      body: JSON.stringify({v: inviate})
     })
       .then(function(r){ return r.json(); })
       .then(function(res){
         if (!res || !res.ok) throw new Error("rifiutata");
-        try { localStorage.setItem(KEY, "1"); } catch(e){}
+        try { localStorage.setItem(K_RIS, JSON.stringify(inviate)); } catch(e){}
         caricato = false;   /* la cripta rileggerà l'archivio aggiornato */
         form.style.display = "none";
+        document.querySelector(".hero").style.display = "none";
+        document.body.classList.add("finito");
         document.getElementById("done").classList.add("show");
         window.scrollTo({top:0, behavior: reduce?"auto":"smooth"});
         var el = document.getElementById("verif");
         if (el){ el.style.color = "var(--gold-soft)"; el.textContent = "Risposta registrata nel grimorio."; }
+        apriBanner();
       })
       .catch(function(){
         send.disabled = false;
@@ -1030,7 +1191,9 @@ html.bacchetta textarea{cursor:text}
      ================================================================== */
 
   var PAROLA  = "Cioccolato1";
-  var K_ACC   = "grimorio-accesso";
+  var K_ACC   = "grimorio-accesso";   /* ha risposto: vede il riepilogo */
+  var K_CUS   = "grimorio-custode";   /* conosce la parola: vede tutto */
+  var K_RIS   = "grimorio-risposte";  /* le risposte già inviate da questo browser */
 
   var viewForm  = document.getElementById("view-form");
   var viewVault = document.getElementById("view-vault");
@@ -1039,7 +1202,14 @@ html.bacchetta textarea{cursor:text}
 
   function letto(k){ try { return localStorage.getItem(k) === "1"; } catch(e){ return false; } }
   function scrivi(k){ try { localStorage.setItem(k, "1"); } catch(e){} }
-  function haAccesso(){ return letto(K_ACC); }
+  function eCustode(){ return letto(K_CUS); }
+  /* Ha già risposto da questo browser: le sue risposte restano salvate qui. */
+  function risposteSalvate(){
+    try { var t = localStorage.getItem(K_RIS); return t ? JSON.parse(t) : null; } catch(e){ return null; }
+  }
+  function haRisposto(){ var v = risposteSalvate(); return !!(v && v.length); }
+  /* Può varcare la soglia chi ha risposto, o chi conosce la parola. */
+  function puoEntrare(){ return haRisposto() || letto(K_ACC) || eCustode(); }
 
   /* ---------- occhio del drago ---------- */
   var striae = document.getElementById("striae");
@@ -1120,18 +1290,74 @@ html.bacchetta textarea{cursor:text}
     viewForm.hidden = vault;
     viewVault.hidden = !vault;
     document.body.classList.toggle("in-vault", vault);
+    if (vault) chiudiBanner();
     for (var k=0;k<vociMenu.length;k++){
       vociMenu[k].setAttribute("aria-current", vociMenu[k].dataset.vai === v ? "true" : "false");
     }
     if (vault){
-      if (haAccesso()) apriCripta(false); else { gate.hidden = false; crypt.hidden = true; embersOn(); }
+      if (puoEntrare()) apriCripta(false); else { gate.hidden = false; crypt.hidden = true; embersOn(); }
       if (location.hash !== "#risultati") history.replaceState(null,"","#risultati");
     } else {
       embersOff();
+      ripristinaQuestionario();
       if (location.hash) history.replaceState(null,"",location.pathname + location.search);
     }
     window.scrollTo({top:0, behavior:"auto"});
   }
+
+  /* Riporta a video le risposte già inviate e chiude il questionario in sola lettura. */
+  function applicaBlocco(){
+    var v = risposteSalvate();
+    if (!v || !v.length) return false;
+    var caselle = document.querySelectorAll(".q[data-col]");
+    for (var k=0;k<caselle.length;k++){
+      var col = parseInt(caselle[k].dataset.col, 10);
+      var el = form.elements[caselle[k].dataset.name];
+      var val = v[col] == null ? "" : String(v[col]);
+      if (!el) continue;
+      if (el.length !== undefined && el.tagName === undefined){
+        for (var j=0;j<el.length;j++) el[j].checked = (el[j].value === val);
+      } else {
+        el.value = val;
+      }
+    }
+    var campi = form.querySelectorAll("input, select, textarea");
+    for (var i=0;i<campi.length;i++) campi[i].disabled = true;
+    form.classList.add("bloccato");
+    send.hidden = true;
+    warn.textContent = "";
+    var apri = document.getElementById("begin");
+    if (apri) apri.textContent = "Rileggi le tue risposte";
+    sync();
+    return true;
+  }
+
+  /* Tornando al questionario la pagina riparte come si deve:
+     bianca per chi non ha ancora risposto, sigillata per chi l'ha già fatto. */
+  function ripristinaQuestionario(){
+    var done = document.getElementById("done");
+    if (!done || !done.classList.contains("show")) return;
+    done.classList.remove("show");
+    document.body.classList.remove("finito");
+    var hero = document.querySelector(".hero");
+    if (hero) hero.style.display = "";
+    form.style.display = "";
+    var v = document.getElementById("verif");
+    if (v){ v.textContent = ""; v.style.color = ""; }
+    for (var i=0;i<required.length;i++) required[i].classList.remove("missing");
+    if (askBox){ askBox.hidden = true; askBox.innerHTML = ""; }
+    refreshAsk();
+    if (!applicaBlocco()){
+      form.reset();
+      send.disabled = false;
+      send.textContent = "Sigilla le risposte";
+      warn.textContent = "";
+      for (var j=0;j<required.length;j++) required[j].classList.remove("filled");
+      sync();
+    }
+  }
+
+  document.getElementById("gia-cripta").addEventListener("click", function(){ mostra("vault"); });
   document.getElementById("back-form").addEventListener("click", function(){ mostra("form"); });
 
   /* ---------- menù a tendina ---------- */
@@ -1179,45 +1405,94 @@ html.bacchetta textarea{cursor:text}
   }
 
   /* ---------- parola del custode ---------- */
-  var keymsg = document.getElementById("keymsg");
-  document.getElementById("keyform").addEventListener("submit", function(ev){
-    ev.preventDefault();
-    var v = document.getElementById("keyinput").value;
-    if (v === PAROLA){
-      keymsg.style.color = "var(--gold-soft)";
-      keymsg.textContent = "Il drago abbassa il capo.";
-      apriCripta(true);
-    } else {
-      keymsg.style.color = "var(--danger)";
-      keymsg.textContent = "Non è questa la parola. Il drago non si muove.";
-      if (!reduce){
-        pupil.style.transform = "scaleX(.42)";
-        pupil.style.transformOrigin = "150px 100px";
-        gate.classList.remove("angry"); void gate.offsetWidth; gate.classList.add("angry");
-        setTimeout(function(){ pupil.style.transform = ""; }, 1400);
+  function collegaSerratura(idForm, idInput, idMsg, dentroLaCripta){
+    var f = document.getElementById(idForm);
+    if (!f) return;
+    var msg = document.getElementById(idMsg);
+    f.addEventListener("submit", function(ev){
+      ev.preventDefault();
+      var v = document.getElementById(idInput).value;
+      if (v === PAROLA){
+        scrivi(K_CUS);
+        msg.style.color = "var(--gold-soft)";
+        msg.textContent = "Il drago abbassa il capo.";
+        if (dentroLaCripta){
+          caricato = false;
+          caricaDati();
+          window.scrollTo({top:0, behavior: reduce?"auto":"smooth"});
+        } else {
+          apriCripta(true);
+        }
+      } else {
+        msg.style.color = "var(--danger)";
+        msg.textContent = "Non è questa la parola. Il drago non si muove.";
+        if (!reduce && !dentroLaCripta){
+          pupil.style.transform = "scaleX(.42)";
+          pupil.style.transformOrigin = "150px 100px";
+          gate.classList.remove("angry"); void gate.offsetWidth; gate.classList.add("angry");
+          setTimeout(function(){ pupil.style.transform = ""; }, 1400);
+        }
       }
-    }
-  });
+    });
+  }
+  collegaSerratura("keyform", "keyinput", "keymsg", false);
+  collegaSerratura("keyform2", "keyinput2", "keymsg2", true);
 
-  /* ---------- domanda dopo l'invio ---------- */
-  var askBox = document.getElementById("ask"), askNote = document.getElementById("ask-note");
+  /* ---------- l'invito a entrare: banner + promemoria nella pagina ---------- */
+  var askBox = document.getElementById("ask");
+  var banner = document.getElementById("banner");
+  var timerBanner = null;
+
+  function apriBanner(){
+    if (!banner || letto(K_ACC) || eCustode()) return;
+    clearTimeout(timerBanner);
+    timerBanner = setTimeout(function(){
+      banner.classList.add("su");
+      document.body.classList.add("banner-su");
+      var si = document.getElementById("ban-si");
+      if (si) setTimeout(function(){ si.focus(); }, 80);
+    }, 750);
+  }
+  function chiudiBanner(){
+    clearTimeout(timerBanner);
+    if (banner) banner.classList.remove("su");
+    document.body.classList.remove("banner-su");
+  }
+
+  function askHtml(testo, idBottone, etichetta){
+    askBox.hidden = false;
+    askBox.innerHTML = '<p class="ask-q">' + testo + '</p>' +
+      '<div class="ask-btns"><button class="ghost" type="button" id="' + idBottone + '">' + etichetta + '</button></div>';
+  }
   function refreshAsk(){
-    if (haAccesso()){
-      askBox.innerHTML = '<p class="ask-q">La soglia è aperta per te.</p><div class="ask-btns"><button class="ghost" type="button" id="ask-enter">Entra nella cripta</button></div>';
+    if (puoEntrare()){
+      askHtml("La soglia è aperta per te.", "ask-enter", "Entra nella cripta");
       document.getElementById("ask-enter").addEventListener("click", function(){ mostra("vault"); });
     }
   }
-  document.getElementById("ask-si").addEventListener("click", function(){
+  function entra(){
     scrivi(K_ACC);
-    askNote.textContent = "";
+    chiudiBanner();
     refreshAsk();
     mostra("vault");
-  });
-  document.getElementById("ask-no").addEventListener("click", function(){
-    askNote.textContent = "Va bene. La soglia resta chiusa.";
-    document.getElementById("ask-si").disabled = true;
-    document.getElementById("ask-no").disabled = true;
-  });
+  }
+
+  function rifiuta(){
+    chiudiBanner();
+    askHtml("Va bene: la soglia resta chiusa.", "ask-mind", "Ho cambiato idea");
+    document.getElementById("ask-mind").addEventListener("click", entra);
+  }
+
+  if (banner){
+    document.getElementById("ban-si").addEventListener("click", entra);
+    document.getElementById("ban-no").addEventListener("click", rifiuta);
+    /* Esc o clic sullo sfondo: come "No, grazie", così resta il modo per ripensarci */
+    var velo = document.getElementById("velobanner");
+    if (velo) velo.addEventListener("click", function(){ if (banner.classList.contains("su")) rifiuta(); });
+    document.addEventListener("keydown", function(e){
+      if (e.key === "Escape" && banner.classList.contains("su")) rifiuta();
+    });
+  }
 
   /* ================= dati ================= */
   function norm(s){
@@ -1329,18 +1604,53 @@ html.bacchetta textarea{cursor:text}
     var pSpec = pctSi("haimaiacquistatounedizione");
     var pAut  = pctSi("seguilautoreautricesuisocial");
 
-    /* --- cronologia --- */
-    var crono = cronologia(data, head);
+    /* --- chi legge in lingua originale, invece di aspettare --- */
+    var iLin = colDi({key:"preferiscileggere"}), pOrig = null;
+    if (iLin >= 0){
+      var vLin = valori(iLin);
+      if (vLin.length){
+        var orig = vLin.filter(function(x){ return norm(x).indexOf("originale") === 0; }).length;
+        pOrig = Math.round(orig/vLin.length*100);
+      }
+    }
+
+    /* --- quante edizioni dello stesso libro: la quantità più diffusa --- */
+    var iFor = colDi({key:"quantiformatiedizionidiverse"}), modaFor = null;
+    if (iFor >= 0){
+      var vFor = valori(iFor), cFor = {};
+      vFor.forEach(function(x){ var k = x.trim(); cFor[k] = (cFor[k]||0)+1; });
+      var chiavi = Object.keys(cFor), miglior = null, quante = 0;
+      for (var f=0; f<chiavi.length; f++) if (cFor[chiavi[f]] > quante){ quante = cFor[chiavi[f]]; miglior = chiavi[f]; }
+      if (miglior !== null){
+        var breve = {"1":"1", "2 – 3":"2–3", "4+":"4+"};
+        modaFor = breve[miglior] || miglior;
+      }
+    }
 
     var html = '<div class="tiles">';
     html += tile(N, "", N === 1 ? "risposta raccolta" : "risposte raccolte");
     if (media !== null) html += tile(media.toFixed(1), " / 5", "influenza media dei social sull'inizio di una saga");
     if (pSpec !== null) html += tile(pSpec, "%", "ha comprato almeno un'edizione speciale");
     if (pAut  !== null) html += tile(pAut, "%", "segue l'autore o l'autrice sui social");
-    if (crono) html += tile(crono.oggi, "", crono.unita === "ora" ? "arrivate nell'ultima ora registrata" : "arrivate nell'ultimo giorno");
-    if (crono) html += tile(crono.mediaPer.toFixed(1), "", "media di risposte al " + crono.unita);
+    if (pOrig !== null) html += tile(pOrig, "%", "legge in lingua originale invece di aspettare la traduzione");
+    if (modaFor !== null) html += tile(modaFor, "", "edizioni dello stesso libro, la quantità più diffusa nelle saghe amate");
     html += "</div>";
 
+    vsub.textContent = N + (N === 1 ? " risposta anonima" : " risposte anonime") + " · aggiornato in tempo reale";
+
+    /* Chi ha soltanto risposto si ferma al riepilogo: il resto è del custode. */
+    var chiave2 = document.getElementById("keyhole2");
+    if (!eCustode()){
+      vbody.innerHTML = html +
+        '<div class="empty">Il drago custodisce il resto del registro.<br>' +
+        'Le risposte domanda per domanda restano al riparo sotto le sue ali.</div>';
+      if (chiave2) chiave2.hidden = false;
+      return;
+    }
+    if (chiave2) chiave2.hidden = true;
+
+    /* --- cronologia --- */
+    var crono = cronologia(data, head);
     if (crono) html += crono.html;
 
     /* --- una sezione per domanda --- */
@@ -1391,7 +1701,6 @@ html.bacchetta textarea{cursor:text}
       html += "</div></div>";
     });
 
-    vsub.textContent = N + (N === 1 ? " risposta anonima" : " risposte anonime") + " · aggiornato in tempo reale";
     vbody.innerHTML = html;
     requestAnimationFrame(function(){
       var bars = vbody.querySelectorAll(".rt i");
@@ -1502,6 +1811,7 @@ html.bacchetta textarea{cursor:text}
   window.addEventListener("resize", function(){ if (!viewVault.hidden && !gate.hidden) emberSeed(); });
 
   refreshAsk();
+  applicaBlocco();
   if (location.hash === "#risultati") mostra("vault");
 
   sync();
